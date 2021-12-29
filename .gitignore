@@ -3,3 +3,5 @@ quality_of_life_extended.csv
 uaScoresDataFrame.csv
 *.ipynb
 /cache
+**/__pycache__/
+**/cache
