@@ -1,24 +1,14 @@
 from fastapi import FastAPI, HTTPException
 
-from quality_of_life.domain.distance_calculator import find_nearest_city
 from errors import DomainError
+from domain.distance_calculator import find_nearest
 
 app = FastAPI()
 
 
-# @app.get("/")
-# def read_root():
-#     return {"Hello": "World"}
-#
-#
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: Optional[str] = None):
-#     return {"item_id": item_id, "q": q}
-
-
-@app.get("/nearest_city/")
-async def get_nearest_city(city: str, country: str, distance: int):
+@app.get("/nearest/")
+async def get_nearest(city: str, country: str, distance: int, limit: int = 1):
     try:
-        return find_nearest_city(city, country, distance)
+        return find_nearest(city, country, distance, limit)
     except DomainError as e:
         raise HTTPException(status_code=404, detail=e.message)

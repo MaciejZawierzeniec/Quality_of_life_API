@@ -1,19 +1,20 @@
+from typing import List, Dict
+
 import geopy.distance
 from OSMPythonTools.nominatim import Nominatim
 
-from quality_of_life.errors import DomainError
-from quality_of_life.repo.repository import read_dataset
+from errors import DomainError
+from repo.repository import read_dataset
 
 
-def calculate_distances_between_cities(searched_city: str, searched_country: str, max_distance: int) -> dict:
+def calculate_distances_between_cities(searched_city: str, searched_country: str) -> list:
     searched_city_latitude, searched_city_longitude = get_city_coordinates(searched_city, searched_country)
-    qol = read_dataset('../../quality_of_life_extended.csv')
-    city_distances = {}
+    qol = read_dataset('/home/maciej/PycharmProjects/QualityOfLifeAPI/quality_of_life_extended.csv')
+    city_distances = []
     for i in qol.index:
         distance_between_cities = calculate_distance(searched_city_latitude, searched_city_longitude,
                                                      qol.at[i, 'latitude'], qol.at[i, 'longitude'])
-        if distance_between_cities < max_distance:
-            city_distances[distance_between_cities] = qol.at[i, 'UA_Name']
+        city_distances.append({'city': qol.at[i, 'UA_Name'], 'distance': distance_between_cities})
 
     return city_distances
 
@@ -32,9 +33,16 @@ def get_city_coordinates(city: str, country: str):
     return city_json["lat"], city_json["lon"]
 
 
-def find_nearest_city(searched_city: str, searched_country: str, max_distance: int) -> dict:
-    distances = calculate_distances_between_cities(searched_city, searched_country, max_distance)
-    min_distance = min(distances)
-    nearest_city = distances[min_distance]
-    return {nearest_city: min_distance}
+def find_nearest(searched_city: str, searched_country: str, max_distance: int, limit: int = 1) -> List[Dict]:
+    distances = calculate_distances_between_cities(searched_city, searched_country)
+    distances = filter_by_max_distance(distances, max_distance)
+    distances = sorted(distances, key=lambda x: x['distance'])[:limit]
+    return distances
 
+
+def filter_by_max_distance(distances: List[Dict], max_distance: int) -> List[Dict]:
+    filtered_results = []
+    for city_distance in distances:
+        if city_distance['distance'] < max_distance:
+            filtered_results.append(city_distance)
+    return filtered_results
