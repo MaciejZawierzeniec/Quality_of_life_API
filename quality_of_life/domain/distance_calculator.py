@@ -3,8 +3,8 @@ from typing import List, Dict
 import geopy.distance
 from OSMPythonTools.nominatim import Nominatim
 
-from errors import DomainError
-from repo.repository import read_dataset
+from quality_of_life.errors import DomainError
+from quality_of_life.repo.repository import read_dataset
 
 
 def calculate_distances_between_cities(searched_city: str, searched_country: str) -> list:
@@ -41,8 +41,4 @@ def find_nearest(searched_city: str, searched_country: str, max_distance: int, l
 
 
 def filter_by_max_distance(distances: List[Dict], max_distance: int) -> List[Dict]:
-    filtered_results = []
-    for city_distance in distances:
-        if city_distance['distance'] < max_distance:
-            filtered_results.append(city_distance)
-    return filtered_results
+    return [city_distance for city_distance in distances if city_distance['distance'] <= max_distance]
