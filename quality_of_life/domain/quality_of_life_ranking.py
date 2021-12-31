@@ -1,7 +1,7 @@
 import os
 from typing import Dict, List
 
-from repo.repository import read_dataset
+from quality_of_life.repo.repository import read_dataset
 
 
 def get_city_ranking(limit: int) -> List[Dict]:
