@@ -1,7 +1,7 @@
 from fastapi import HTTPException, APIRouter
 
-from errors import DomainError
-from domain.distance_calculator import find_nearest
+from quality_of_life.errors import DomainError
+from quality_of_life.domain.distance_calculator import find_nearest
 
 
 router = APIRouter()
