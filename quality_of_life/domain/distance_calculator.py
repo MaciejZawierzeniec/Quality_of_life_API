@@ -1,3 +1,4 @@
+import os
 from typing import List, Dict
 
 import geopy.distance
@@ -9,7 +10,7 @@ from quality_of_life.repo.repository import read_dataset
 
 def calculate_distances_between_cities(searched_city: str, searched_country: str) -> list:
     searched_city_latitude, searched_city_longitude = get_city_coordinates(searched_city, searched_country)
-    qol = read_dataset('/home/maciej/PycharmProjects/QualityOfLifeAPI/quality_of_life_extended.csv')
+    qol = read_dataset(os.path.join(os.path.abspath(os.curdir), 'quality_of_life_extended.csv'))
     city_distances = []
     for i in qol.index:
         distance_between_cities = calculate_distance(searched_city_latitude, searched_city_longitude,
