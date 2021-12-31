@@ -5,3 +5,4 @@ install:
   - pip install -r requirements.txt
 script:
   - pytest --cov=quality_of_life --cov-fail-under=65 tests
+  - black quality_of_life --diff
