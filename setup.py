@@ -1,10 +1,10 @@
-from setuptools import setup
+from setuptools import setup, find_namespace_packages
 
 setup(
     name='QualityOfLifeAPI',
     version='0.1.0',
-    packages=['api', 'api.endpoints', 'repo', 'domain'],
-    package_dir={'': '../quality_of_life'},
+    packages=find_namespace_packages(include=['quality_of_life.*'],
+                                     exclude=['quality_of_life.quality_of_life.*']),
     url='https://github.com/MaciejZawierzeniec/Quality_of_life_API',
     license='',
     author='Maciej',
@@ -16,4 +16,5 @@ setup(
                       'OSMPythonTools~=0.3.3',
                       'requests~=2.26.0',
                       ],
+    include_package_data=True,
 )

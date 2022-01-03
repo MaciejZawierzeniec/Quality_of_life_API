@@ -8,3 +8,4 @@ uaScoresDataFrame.csv
 .coverage
 *.egg-info
 **/build
+**/dist
