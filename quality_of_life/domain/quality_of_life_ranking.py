@@ -3,10 +3,17 @@ from typing import Dict, List
 from quality_of_life.repo.repository import read_dataset
 
 
-def get_city_ranking(limit: int) -> List[Dict]:
+def get_ranking_by(get_by, limit: int) -> List[Dict]:
     qol = read_dataset("quality_of_life_extended.csv")
-    ranking = [
-        {"city": element[0], "ranking": element[1]}
-        for element in list(zip(qol["UA_Name"], qol["mean"]))
-    ]
-    return sorted(ranking, key=lambda x: x["ranking"], reverse=True)[:limit]
+    ranking = {}
+    for element in list(zip(qol[get_by], qol["mean"])):
+        if element[0] not in ranking:
+            ranking[element[0]] = element[1]
+        else:
+            ranking[element[0]] += element[1]
+    return sorted(_split_by(get_by, ranking), key=lambda x: x["ranking"], reverse=True)[:limit]
+
+
+def _split_by(get_by, ranking):
+    return [{get_by: key, "ranking": value}
+            for key, value in ranking.items()]
