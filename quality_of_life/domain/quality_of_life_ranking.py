@@ -1,3 +1,4 @@
+from collections import defaultdict
 from typing import Dict, List
 
 from quality_of_life.repo.repository import read_dataset
@@ -5,12 +6,9 @@ from quality_of_life.repo.repository import read_dataset
 
 def get_ranking_by(get_by, limit: int) -> List[Dict]:
     qol = read_dataset("quality_of_life_extended.csv")
-    ranking = {}
+    ranking = defaultdict(float)
     for element in list(zip(qol[get_by], qol["mean"])):
-        if element[0] not in ranking:
-            ranking[element[0]] = element[1]
-        else:
-            ranking[element[0]] += element[1]
+        ranking[element[0]] += element[1]
     return sorted(_split_by(get_by, ranking), key=lambda x: x["ranking"], reverse=True)[:limit]
 
 
