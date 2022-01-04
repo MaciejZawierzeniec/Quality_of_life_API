@@ -6,3 +6,6 @@ uaScoresDataFrame.csv
 **/cache
 **/.pytest_cache
 .coverage
+*.egg-info
+**/build
+**/dist
