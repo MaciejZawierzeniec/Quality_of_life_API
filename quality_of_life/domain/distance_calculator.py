@@ -23,7 +23,7 @@ def calculate_distances_between_cities(
             qol.at[i, "longitude"],
         )
         city_distances.append(
-            {"city": qol.at[i, "UA_Name"], "distance": distance_between_cities}
+            {"city": qol.at[i, "City"], "distance": distance_between_cities}
         )
 
     return city_distances
