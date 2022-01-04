@@ -1,9 +1,10 @@
+from quality_of_life.enums import ScoreColumn, GeoHierarchy
 from quality_of_life.domain.quality_of_life_ranking import get_ranking_by
 
 
 def test_get_continent_ranking():
     limit = 7
-    ranking = get_ranking_by('Continent', limit)
+    ranking = get_ranking_by(GeoHierarchy.CONTINENT, limit, ScoreColumn.MEAN)
     assert ranking[:limit] == [{'Continent': 'Europe', 'ranking': 625.2299999999996},
                                {'Continent': 'North America', 'ranking': 457.46},
                                {'Continent': 'Asia', 'ranking': 191.54000000000005},
@@ -14,7 +15,7 @@ def test_get_continent_ranking():
 
 def test_get_country_ranking():
     limit = 5
-    ranking = get_ranking_by('Country', limit)
+    ranking = get_ranking_by(GeoHierarchy.COUNTRY, limit, ScoreColumn.MEAN)
     assert ranking[:limit] == [{'Country': ' United Kingdom', 'ranking': 77.61000000000001},
                                {'Country': ' Canada', 'ranking': 66.23},
                                {'Country': ' Germany', 'ranking': 65.82},
@@ -24,7 +25,7 @@ def test_get_country_ranking():
 
 def test_get_city_ranking():
     limit = 5
-    ranking = get_ranking_by('City', limit)
+    ranking = get_ranking_by(GeoHierarchy.CITY, limit, ScoreColumn.MEAN)
     assert ranking[:limit] == [{'City': 'Birmingham', 'ranking': 10.01},
                                {'City': 'Portland', 'ranking': 9.89},
                                {'City': 'Singapore', 'ranking': 7.1},
