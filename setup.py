@@ -15,6 +15,7 @@ setup(
                       'geopy~=2.2.0',
                       'OSMPythonTools~=0.3.3',
                       'requests~=2.26.0',
+                      'uvicorn~=0.16.0'
                       ],
     include_package_data=True,
 )
