@@ -2,8 +2,8 @@ from setuptools import setup, find_namespace_packages
 
 setup(
     name='QualityOfLifeAPI',
-    version='0.1.0',
-    packages=find_namespace_packages(include=['quality_of_life.*'],
+    version='0.2.1',
+    packages=find_namespace_packages(include=['quality_of_life', 'quality_of_life.*'],
                                      exclude=['quality_of_life.quality_of_life.*']),
     url='https://github.com/MaciejZawierzeniec/Quality_of_life_API',
     license='',
@@ -18,4 +18,9 @@ setup(
                       'uvicorn~=0.16.0'
                       ],
     include_package_data=True,
+    entry_points={
+        'console_scripts': [
+            'quality_of_life = quality_of_life.main:main',
+        ],
+    },
 )
