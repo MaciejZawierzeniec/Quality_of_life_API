@@ -20,7 +20,7 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'quality_of_life = quality_of_life.main:main',
+            'quality_of_life = quality_of_life.__main__:main',
         ],
     },
 )
