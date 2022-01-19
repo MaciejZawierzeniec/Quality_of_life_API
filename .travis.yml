@@ -3,10 +3,13 @@ python:
   - 3.8
 install:
   - pip install -r requirements.txt
-script:
-  - black quality_of_life --diff
-  - flake8 quality_of_life
-  - python setup.py sdist bdist_wheel
-  - docker-compose up
-  - python quality_of_life/db/populate_db.py
-  - pytest --cov=quality_of_life --cov-fail-under=65 tests/unit/api/endpoints/test_ranking.py
+jobs:
+  include:
+    - script:
+      - black quality_of_life --diff
+      - flake8 quality_of_life
+      - python setup.py sdist bdist_wheel
+      - docker-compose up
+    - script:
+      - python quality_of_life/db/populate_db.py
+      - pytest --cov=quality_of_life --cov-fail-under=65 tests/unit/api/endpoints/test_ranking.py
