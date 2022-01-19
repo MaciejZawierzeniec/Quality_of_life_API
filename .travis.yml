@@ -5,7 +5,7 @@ install:
   - pip install -r requirements.txt
 before_script:
   - black quality_of_life --diff
-  - flake8 quality_of_life
+#  - flake8 quality_of_life
   - python setup.py sdist bdist_wheel
   - docker build -t quality_of_life .
 script:
