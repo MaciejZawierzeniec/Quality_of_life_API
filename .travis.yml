@@ -7,7 +7,6 @@ script:
   - black quality_of_life --diff
   - flake8 quality_of_life
   - python setup.py sdist bdist_wheel
-  - docker build -t quality_of_life .
-  - python -m quality_of_life
+  - docker-compose up
   - python quality_of_life/db/populate_db.py
   - pytest --cov=quality_of_life --cov-fail-under=65 tests/unit/api/endpoints/test_ranking.py
