@@ -6,7 +6,7 @@ from quality_of_life.db.database import Base
 from quality_of_life.db.dependencies import get_db
 from quality_of_life.main import app
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@0.0.0.0:5432/postgres"
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/postgres"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
