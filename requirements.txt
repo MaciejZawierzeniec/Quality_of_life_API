@@ -8,4 +8,5 @@ setuptools~=59.4.0
 SQLAlchemy~=1.4.29
 psycopg2-binary~=2.9.3
 alembic~=1.7.5
-
+flake8~=4.0.1
+black~=21.12b0
